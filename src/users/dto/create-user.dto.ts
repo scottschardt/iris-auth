@@ -1,10 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
-export class UserDto {
-    @Field(() => ID)
-    id: number;
-    
+export class CreateUserDto {
     @Field()
     firstName: string;
     
@@ -13,4 +10,7 @@ export class UserDto {
     
     @Field()
     email: string;
+    
+    @Field()
+    password: string;
 }

@@ -18,4 +18,10 @@ export class User extends Model<User> {
 
   @Column
   email: string;
+
+  @Column
+  createdAt: Date;
+
+  @Column
+  password: string;
 }

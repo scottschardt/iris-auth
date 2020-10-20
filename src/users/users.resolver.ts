@@ -1,8 +1,11 @@
-import {Resolver, Query, Mutation, ResolveField, Args, Int } from '@nestjs/graphql'
+import {Resolver, Query, Mutation, ResolveField, Args, Int, Context } from '@nestjs/graphql'
 import { UsersService } from "./users.service";
 import { User } from "./user.entity";
-import { UserDto } from './dto/user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UserLoginDto } from './dto/login-user.dto';
 import { UserInput } from './inputs/user.input'
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from './auth.guard'
 
 @Resolver(of => User)
 export class UsersResolver {
@@ -10,18 +13,14 @@ export class UsersResolver {
     private usersService: UsersService,
   ) {}
 
-  @Query(() => User)
-  async getUser(@Args('id', { type: () => Int }) id: number) {
-    return this.usersService.getUser(id);
+  @Query(() => CreateUserDto)
+  @UseGuards(new AuthGuard())
+  async whoAmI(@Context('user') user: User){
+    return user;
   }
 
-  @Query(returns => String)
-   async sayHi(@Args({name: 'name', type: () => String}) name: String) {
-      return `Hello ${name}`
+  @Mutation(() => CreateUserDto)
+  async createUser(@Args('input', {type: () => UserInput}) user: UserInput) {
+    return this.usersService.createUser(user);
   }
-
-  // @Mutation(() => User)
-  // async createUser(@Args('input', {type: () => UserInput}) user: UserInput) {
-  //   return this.usersService.createUser(user);
-  // }
 }
