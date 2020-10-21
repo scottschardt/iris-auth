@@ -4,7 +4,7 @@ import { UsersResolver } from './users.resolver';
 import { usersProviders } from './users.providers';
 import { DatabaseModule } from '../database/database.module';
 import { AuthModule } from 'src/auth/auth.module';
-
+ 
 @Module({
   imports: [DatabaseModule, AuthModule],
   providers: [
