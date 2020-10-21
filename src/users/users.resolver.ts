@@ -14,7 +14,7 @@ export class UsersResolver {
   ) {}
 
   @Query(() => CreateUserDto)
-  @UseGuards(new AuthGuard())
+  @UseGuards(AuthGuard)
   async whoAmI(@Context('user') user: User){
     return user;
   }
