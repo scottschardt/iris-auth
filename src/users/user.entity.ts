@@ -23,5 +23,8 @@ export class User extends Model<User> {
   createdAt: Date;
 
   @Column
+  updatedAt: Date;
+
+  @Column
   password: string;
 }
